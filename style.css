@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.grid_container{
+    display: flex;
+    flex-wrap: wrap;
+    height: 450px;
+    width: 450px;
+    box-shadow: 0px 0px 10px black;
+    
+}
+
+.grid_16x16{
+    
+  
+    height: 28.125px;
+    width: 28.125px;
+}
