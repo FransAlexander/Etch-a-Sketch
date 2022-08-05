@@ -20,9 +20,8 @@ body{
     
 }
 
-.grid_16x16{
-    
-  
-    height: 28.125px;
-    width: 28.125px;
+.grid_30x30{
+    height: 15px;
+    width: 15px;
 }
+
