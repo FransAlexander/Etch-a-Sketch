@@ -25,3 +25,12 @@ body{
     width: 15px;
 }
 
+.grid_30x30:hover{
+    background-color: black;
+}
+.grid_colorFill{
+    background-color: black;
+}
+#sqr{
+    
+}
