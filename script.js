@@ -1,40 +1,30 @@
 createGrid(900, "grid_30x30");
 
 const squares = document.querySelectorAll(".sqr")
-activeateFillSqr()
 
 
+  var toggle = false;
 
-  function fillSqr(){
+
     squares.forEach((square)=>{
       square.addEventListener("mouseover", (e)=>{
-        e.target.classList.toggle("grid_colorFill")
+       if(toggle) {
+        e.target.style.background = "black"
+       }
       })
-    });
-  }
+    }, false);
+  
+    function toggleEvent(){
+      toggle = !toggle;
+    }
   
   function activeateFillSqr(){
     squares.forEach((square)=>{
-      square.addEventListener("click", fillSqr);
+      square.addEventListener("click", toggleEvent);
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  activeateFillSqr()
 
 
 
