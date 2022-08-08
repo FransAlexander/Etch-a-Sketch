@@ -31,6 +31,6 @@ body{
 .grid_colorFill{
     background-color: black;
 }
-#sqr{
-    
+.hidden{
+    background-color: rgb(226, 52, 52);
 }
