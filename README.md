@@ -1,12 +1,14 @@
 # Etch-a-Sketch
 
-calculation of square sizing:
+calculation of square sizing: fo a 600 px square
 
-16x16 grid = 256 squares 28.125px per square
+16x16 grid = 256 squares 37.5px per square
 
-30x30 grid = 900 squares 15pc per square
+32x32 grid = 1024 squares 18.75px per square
 
-64x64 grid = 4096 squares 7.03125px per square
+48x48 grid = 2304 squares 12.5px per square
+
+64x64 grid = 4096 squares 9.375px per square
 
 create div element
 
