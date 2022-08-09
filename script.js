@@ -1,41 +1,60 @@
-createGrid(900, "grid_30x30");
-
-const squares = document.querySelectorAll(".sqr")
+createGrid(4096, "grid_64x64");
 
 
-  var toggle = false;
+//Creates the gridlayout
+function createGrid (gridSquares, gridSize) {
 
-
-    squares.forEach((square)=>{
-      square.addEventListener("mouseover", (e)=>{
-       if(toggle) {
-        e.target.style.background = "black"
-       }
-      })
-    }, false);
+const container = document.querySelector(".grid_container")
   
-    function toggleEvent(){
-      toggle = !toggle;
-    }
-  
-  function activeateFillSqr(){
-    squares.forEach((square)=>{
-      square.addEventListener("click", toggleEvent);
-    });
-  }
-
-  activeateFillSqr()
-
-
-
-
- function createGrid (gridSquares, gridSize) {
-  const container = document.querySelector(".grid_container")
-
-  for(let i = 0; i < gridSquares; i++){
-      const div = document.createElement("div");
-      div.classList.add(gridSize);
-      div.classList.add("sqr");
-      container.appendChild(div);
+for(let i = 0; i < gridSquares; i++){
+  const div = document.createElement("div");
+  div.classList.add(gridSize);
+  div.classList.add("sqr");
+  container.appendChild(div);
   }   
 }
+
+
+//Filling the squares with color
+
+const squares = document.querySelectorAll(".sqr")
+let toggle = false;
+
+ 
+  
+    
+function toggleEvent(){
+  toggle = !toggle;
+  };
+  
+function fillOnClick(){
+  squares.forEach((square)=>{
+    square.addEventListener("click", (e)=>{
+      e.target.style.background = "black";
+    })
+  })
+}
+
+function fillSquare(color){
+  squares.forEach((square)=>{
+    square.addEventListener("mouseover", (e)=>{
+      if(toggle == true) {
+        e.target.style.background = color;
+      };
+    });
+  });
+};
+  
+  
+function activeateFillSqr(){
+  squares.forEach((square)=>{
+    square.addEventListener("click", ()=>{
+      toggleEvent();
+      fillSquare("black");
+      fillOnClick()
+    });
+  });
+};
+
+activeateFillSqr()
+

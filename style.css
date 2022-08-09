@@ -20,12 +20,12 @@ body{
     
 }
 
-.grid_30x30{
-    height: 15px;
-    width: 15px;
+.grid_64x64{
+    height: 7.03125px;
+    width: 7.03125px;
 }
 
-.grid_30x30:hover{
+.grid_64x64:hover{
     background-color: black;
 }
 .grid_colorFill{
