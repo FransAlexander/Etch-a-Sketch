@@ -47,25 +47,49 @@ body{
    
 }
 
-.slider{
+.slider_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 20em;
     width: 10em;
+}
+
+.slider{
+    display: flex;
+    height: 20em;
+    
 }
 
 /* ---------Colors------------ */
 .colors{
     display: flex;
     margin-left: 1em;
-    width: 10em;
+    width: 15em;
     flex-direction: column;
     justify-content: center;
     gap: 2em;
 }
+.color_picker_container{
+    display:flex;
+    flex-wrap: wrap;
+    height: 15em;
+    width: 15em;
+    box-shadow: 0px 0px 10px black;
+}
 .color_picker{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 2em;
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+    transition: transform .2s;
+    border: 1px solid rgba(2, 2, 2, 0.301);
+}
+.color_picker:hover{
+    transform: scale(1.5);
+}
+.active{
     border: 1px solid black;
 }
 .random_color{

@@ -5,7 +5,6 @@
 createGrid(2304, "grid_64x64");
 
 function createGrid (gridSquares, gridSize) {
-
 const container = document.querySelector(".grid_container")
   
 for(let i = 0; i < gridSquares; i++){
@@ -21,9 +20,15 @@ for(let i = 0; i < gridSquares; i++){
 -------------------Filling squares with color----------------
 ----------------------------------------------------------------*/
 const squares = document.querySelectorAll(".sqr")
+const colors = document.querySelectorAll(".color_picker");
+
 let toggle = false;
 
+
+resetBtn()
 activateFillSquare()
+onclick()
+
 
 // CallBack function for toggling fillSquare on and off
 // Toggle is declared false in above Variable, with the toggleEvent function it turns to True  with the help of(!).
@@ -33,12 +38,29 @@ function toggleEvent(){
 };
   
 // on click toggles fillSquare function
+
+function onclick (){
+  colors.forEach((color)=>{
+    color.addEventListener("click", (e)=>{
+        e.target.classList.toggle("active")
+
+    });
+  });
+}
+
 function activateFillSquare(){
+  let col = "";
+   colors.forEach((color)=>{
+    color.addEventListener("click", (e)=>{
+      col = color.getAttribute("style")
+      console.log(col)
+    });
+  });
+  
   squares.forEach((square)=>{
     square.addEventListener("click", ()=>{
       toggleEvent();
-      fillSquare("black");
-      fillOnClick()
+      fillSquare(col);
     });
   });
 };
@@ -48,20 +70,44 @@ function fillSquare(color){
   squares.forEach((square)=>{
     square.addEventListener("mouseover", (e)=>{
       if(toggle == true) {
-        e.target.style.background = `${color}`
+        e.target.style.cssText = `${color}`
       };
     });
   });
 };
 
-// fill square on click
-function fillOnClick(){
+//Eraser
+function eraser(color){
   squares.forEach((square)=>{
     square.addEventListener("click", (e)=>{
-      e.target.classList.add("grid_colorFill")
+      e.target.style.background = "white"
     })
   })
 }
+
+
+
+
+
+/*--------------------------------------------------------------
+-------------------Reset Button----------------
+----------------------------------------------------------------*/
+
+function resetBtn(){
+  const resetBtn = document.querySelector(".reset_btn");
+  resetBtn.addEventListener("click", ()=>{
+    squares.forEach((square)=>{
+      square.removeAttribute("style")
+    })
+  });
+};
+
+
+
+
+/*--------------------------------------------------------------
+-------------------color picker palette----------------
+----------------------------------------------------------------*/
 
 
 
