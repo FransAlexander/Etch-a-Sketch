@@ -1,62 +1,60 @@
 
-/*--------------------------------------------------------------
--------------------create grid layout---------------------------
-----------------------------------------------------------------*/
-createGrid(2304, "grid_64x64");
+/*---------------------------------------------------------------
+-----------------------FUNCTION-CALLS----------------------------
+-----------------------------&-----------------------------------
+-------------------------VARIABLES-------------------------------
+-----------------------------------------------------------------*/
+createGrid(1024, "grid_32x32");
 
-function createGrid (gridSquares, gridSize) {
-const container = document.querySelector(".grid_container")
-  
-for(let i = 0; i < gridSquares; i++){
-  const div = document.createElement("div");
-  div.classList.add(gridSize);
-  div.classList.add("sqr");
-  container.appendChild(div);
-  }   
-}
-
-
-/*--------------------------------------------------------------
--------------------Filling squares with color----------------
-----------------------------------------------------------------*/
 const squares = document.querySelectorAll(".sqr")
 const colors = document.querySelectorAll(".color_picker");
-
 let toggle = false;
-
 
 resetBtn()
 activateFillSquare()
-onclick()
+colorPickEffect()
 
 
-// CallBack function for toggling fillSquare on and off
-// Toggle is declared false in above Variable, with the toggleEvent function it turns to True  with the help of(!).
-// And back to false if pressed again, activating and de activating the fillSquare function
+
+/*---------------------------------------------------------------
+------------------------GRID-CREATION----------------------------
+----------------------------------------------------------------*/
+
+//Creates Grid layout with help of params
+
+function createGrid (gridSquares, gridSize) {
+  const container = document.querySelector(".grid_container")
+  
+  for(let i = 0; i < gridSquares; i++){
+    const div = document.createElement("div");
+    div.classList.add(gridSize);
+    div.classList.add("sqr");
+    container.appendChild(div);
+    }   
+}
+
+/*---------------------------------------------------------------
+----------------------------COLOR--------------------------------
+----------------------------------------------------------------*/
+
+//CallBack function for toggling fillSquare()
+//Toggle is declared false in above variable. 
+//The toggleEvent() function turns "toggle variable" boolean value to opposite with (!)
+//with each click, toggling it from True to False
+
 function toggleEvent(){
   toggle = !toggle;
 };
-  
-// on click toggles fillSquare function
 
-function onclick (){
-  colors.forEach((color)=>{
-    color.addEventListener("click", (e)=>{
-        e.target.classList.toggle("active")
-
-    });
-  });
-}
+//Gets color, toggles fillSquare() and adds selected color to fillSquare()
 
 function activateFillSquare(){
   let col = "";
    colors.forEach((color)=>{
     color.addEventListener("click", (e)=>{
       col = color.getAttribute("style")
-      console.log(col)
     });
   });
-  
   squares.forEach((square)=>{
     square.addEventListener("click", ()=>{
       toggleEvent();
@@ -65,7 +63,8 @@ function activateFillSquare(){
   });
 };
 
-// fill square on mouseover if toggle is true
+//Fill squares with color on mouseover if toggle is true
+
 function fillSquare(color){
   squares.forEach((square)=>{
     square.addEventListener("mouseover", (e)=>{
@@ -76,21 +75,22 @@ function fillSquare(color){
   });
 };
 
-//Eraser
-function eraser(color){
-  squares.forEach((square)=>{
-    square.addEventListener("click", (e)=>{
-      e.target.style.background = "white"
-    })
-  })
+//Highligths selected color and unselects previous selected color
+
+function colorPickEffect (){
+  colors.forEach((color)=>{
+    color.addEventListener("click", (e)=>{
+        colors.forEach((color)=>{
+              color.classList.remove("active")
+              e.target.classList.add("active")
+        });
+    });
+  });
 }
 
 
-
-
-
 /*--------------------------------------------------------------
--------------------Reset Button----------------
+---------------------------RESET-BUTTON-------------------------
 ----------------------------------------------------------------*/
 
 function resetBtn(){
