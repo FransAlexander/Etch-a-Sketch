@@ -47,6 +47,12 @@ body{
    
 }
 
+.random_color_effect{
+    background-color: #5faf9e;
+    
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.623);
+}
+
 .slider_container{
     display: flex;
     flex-direction: column;
@@ -82,7 +88,7 @@ body{
     display: flex;
     height: 24px;
     width: 24px;
-    cursor: pointer;
+    cursor: crosshair;
     
     border: 1px solid rgba(2, 2, 2, 0.301);
 }
@@ -90,7 +96,7 @@ body{
     transform: scale(1.5);
 }
 .active{
-    transform: scale(1.2);
+    transform: scale(1.5);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.623);
 }
 .random_color{
@@ -121,6 +127,8 @@ body{
     cursor: crosshair;
     
 }
+
+
 
 .grid_32x32{
     height: 18.75px;
