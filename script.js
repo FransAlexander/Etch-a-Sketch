@@ -1,48 +1,8 @@
-/*---------------------------------------------------------------
------------------------FUNCTION-CALLS----------------------------
------------------------------&-----------------------------------
--------------------------VARIABLES-------------------------------
------------------------------------------------------------------*/
-
-createGrid(1024, "grid_32x32");
-
-const squares = document.querySelectorAll(".sqr")
-const colors = document.querySelectorAll(".color_picker");
-const random = document.querySelector(".random_color")
-
-let toggle = false;
-let toggleRandom = false; 
-let randomColor = `${getRandomColor()}`
-let col = ""
-
-/*----------------------------------------------------------
-----------------------Event Functions---------------------*/
-// Stores in Vars so Removeeventlistener will be possible
-
-let colorActivate = function(){
-  toggleRandomColor();
-  fillSquareRandom();
-  fillSquareRandomClick()
-  console.log(toggleRandom)
-}
-
-
-
-resetBtn()
-colorPickEffect()
-toggleRandomEvent()
-activateFillSquare()
-
-console.log(randomColor)
-
 
 
 /*-------------------------------------------------------------
 ------------------------GRID-CREATION----------------------------
 ----------------------------------------------------------------*/
-
-//Creates Grid layout with help of params
-
 function createGrid (gridSquares, gridSize) {
   const container = document.querySelector(".grid_container")
   
@@ -54,62 +14,88 @@ function createGrid (gridSquares, gridSize) {
     }   
 }
 
+createGrid(1024, "grid_32x32");
 
-/*---------------------------------------------------------------
-----------------------------COLOR-PICK--------------------------------
-----------------------------------------------------------------*/
+/*----------------------------------------------------------
+----------------FUNCTION-CALLS-&-VARIABLES------------------
+------------------------------------------------------------*/
+const squares = document.querySelectorAll(".sqr")
+const colors = document.querySelectorAll(".color_picker");
+const random = document.querySelector(".random_color")
 
-//CallBack function for toggling fillSquare()
-//Toggle is declared false in above variable. 
-//The toggleEvent() function turns "toggle variable" boolean value to opposite with (!)
-//with each click, toggling it from True to False and Vice Versa
+let toggleColorPick = false;
+let toggleRandom = false;
+let colorPick = "";
 
-function toggleEvent(){
-  toggle = !toggle;
-};
+//------EVENTLISTENER FUNCTIONS----
+let colorActivate = function(){
+  toggleColorRandom();
+  fillSquareRandom();
+  fillSquareClickRandom()
+}
+//----------------------------------
+
+//------FUNCTIONS CALLS----
+resetBtn()
+colorPickHighlightEffect()
+toggleEventRandom()
+activateFillSquare()
+//--------------------------------
 
 
 
-//Gets color, toggles fillSquare() and adds selected color to fillSquare() / fillSquareClick()
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||COLOR PICKER|||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 
+//---------------------TOGGLES--------------------
+//colorPicker
+function toggleColorPicker(){
+  toggleColorPick = !toggleColorPick;
+}
+//Random Color
+function toggleColorRandom(){
+  toggleRandom = !toggleRandom
+}
+//-----------------------------------------------
+
+
+//--------------COLOR PALETTE FUNCTIONS-----------
 function activateFillSquare(){
   colors.forEach((color)=>{
     color.addEventListener("click", ()=>{
-      col = color.getAttribute("style")
-      fillSquareClick(col)
+      colorPick = color.getAttribute("style")
+      fillSquareClick(colorPick)
       removeEventRandom()
     });
   }); 
   squares.forEach((square)=>{
     square.addEventListener("click", ()=>{
-      toggleEvent();
-      fillSquare(col);
-      console.log(toggle)
+      toggleColorPicker();
+      fillSquare(colorPick);
     });
   });
 }
-//Fill squares with color on mouseover if toggle is true
-function fillSquare(color){
-  squares.forEach((square)=>{
-    square.addEventListener("mouseover", (e)=>{
-      if(toggle == true) { 
-        e.target.style.cssText = `${color}`
-      };
-    });
-  });
-};
+    function fillSquare(color){
+      squares.forEach((square)=>{
+        square.addEventListener("mouseover", (e)=>{
+          if(toggleColorPick == true) { 
+            e.target.style.cssText = `${color}`
+          };
+        });
+      });
+    };
+        function fillSquareClick(color){
+          squares.forEach((square)=>{
+            square.addEventListener("click", (e)=>{
+                e.target.style.cssText = `${color}`
+            });
+          });
+        };
 
-function fillSquareClick(color){
-  squares.forEach((square)=>{
-    square.addEventListener("click", (e)=>{
-        e.target.style.cssText = `${color}`
-    });
-  });
-};
-
-//Highligths selected color and unselects previous selected color
-function colorPickEffect (){
+//---------CLICK EFFECT FOR COLOR PALETTE-------
+function colorPickHighlightEffect (){
   colors.forEach((color)=>{
     color.addEventListener("click", (e)=>{
         colors.forEach((color)=>{
@@ -120,11 +106,76 @@ function colorPickEffect (){
     });
   });
 }
+//-----------------------------------------------
 
 
-/*--------------------------------------------------------------
----------------------------RESET-BUTTON-------------------------
-----------------------------------------------------------------*/
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||RANDOM COLOR PICKER||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+
+//-----------------------REMOVERS------------------------
+function removeEventRandom(){
+  squares.forEach((square)=>{
+    square.removeEventListener("click", colorActivate)
+  });
+}
+function colorPickEffectRemove (){
+  colors.forEach((color)=>{
+        color.classList.remove("active")
+  });
+  random.classList.add("random_color_effect")
+}
+//-------------------------------------------------------
+
+
+//---------------RANDOM COLOR GENERATOR------------------
+function getColorRandom(){
+  var letters = '0123456789ABCDEF';
+  var color = 'background-color: #';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color
+}
+//---------------------------------------------------------
+
+
+//-----------------RANDOM COLOR BUTTON---------------------
+function toggleEventRandom(){
+  random.addEventListener("click", ()=>{
+      colorPickEffectRemove()
+      colorActivateRandom()
+  })
+}
+    function colorActivateRandom(){
+      squares.forEach((square)=>{
+        square.addEventListener("click", colorActivate)
+      });
+    }
+        function fillSquareRandom(){
+          squares.forEach((square)=>{
+            square.addEventListener("mouseover", (e)=>{
+              if(toggleRandom == true) { 
+                e.target.style.cssText = getColorRandom()
+              };
+            });
+          });
+        };
+            function fillSquareClickRandom(){
+              squares.forEach((square)=>{
+                square.addEventListener("click", (e)=>{
+                  if(toggleRandom == true) { 
+                    e.target.style.cssText = getColorRandom()
+                  };
+                });
+              });
+            };
+//---------------------------------------------------------
+
+
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||RESET BUTTON|||||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 function resetBtn(){
   const resetBtn = document.querySelector(".reset_btn");
@@ -135,112 +186,8 @@ function resetBtn(){
   });
 };
 
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||
+||||||||||||||||||||||WATER COLOR|||||||||||||||||||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 
-
-/*--------------------------------------------------------------
--------------------RANDOM-COLOR-PICKER--------------------------
-----------------------------------------------------------------*/
-
-//Event Removers
-function removeEventRandom(){
-  squares.forEach((square)=>{
-    square.removeEventListener("click", colorActivate)
-  });
-}
-
-
-function getRandomColor(){
-  
-  var letters = '0123456789ABCDEF';
-  var color = 'background-color: #';
-
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color
-}
-
-function toggleRandomColor (){
-  toggleRandom = !toggleRandom
-}
-
-//Get getRandomColor(), run it each rtime mouse touches new square
-function fillSquareRandom(){
-  squares.forEach((square)=>{
-    square.addEventListener("mouseover", (e)=>{
-      if(toggleRandom == true) { 
-        e.target.style.cssText = getRandomColor()
-      };
-    });
-  });
-};
-
-function fillSquareRandomClick(){
-  squares.forEach((square)=>{
-    square.addEventListener("click", (e)=>{
-      if(toggleRandom == true) { 
-        e.target.style.cssText = getRandomColor()
-      };
-    });
-  });
-};
-
-function randomColorActivate(){
-  squares.forEach((square)=>{
-    square.addEventListener("click", colorActivate)
-  });
-}
-
-
-// Calls Random color function and also makes toggle = false, Else if toggle = true it will color over squares with white
-function toggleRandomEvent(){
-  random.addEventListener("click", ()=>{
-      colorPickEffectRemove()
-      randomColorActivate()
-      console.log(toggleRandom)
-  })
-}
-
-
-
-function colorPickEffectRemove (){
-        colors.forEach((color)=>{
-              color.classList.remove("active")
-        });
-        random.classList.add("random_color_effect")
-    }
- 
-
- // IF Toggle = True ToggleRandom IS = false
-
-
-
-
-/*--------------------------------------------------------------
---------------------------PIXEL-SLIDER--------------------------
-----------------------------------------------------------------*/
-
-
-// function GridChange(sliderValue){
-
-  
-//   if(sliderValue < 20){
-//     gridSqr = 64
-//     gridSiz = "grid_8x8";
-//   }else if(sliderValue > 20 && sliderValue < 40){
-//     gridSqr = 256
-//     gridSiz = "grid_16x16";
-//   }else if(sliderValue > 40 && sliderValue < 60){
-//     gridSqr = 1024
-//     gridSiz = "grid_32x32";
-//   }else if(sliderValue >60 && sliderValue < 80){
-//     gridSqr = 2304
-//     gridSiz = "grid_48x48";
-//   }else if(sliderValue >80 && sliderValue < 100){
-//     gridSqr = 4096
-//     gridSiz = "grid_64x64";
-//   }
-
-
-// }
