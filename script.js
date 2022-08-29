@@ -16,9 +16,12 @@ function createGrid (gridSquares, gridSize) {
 
 createGrid(1024, "grid_32x32");
 
+
+
 /*----------------------------------------------------------
 ----------------FUNCTION-CALLS-&-VARIABLES------------------
 ------------------------------------------------------------*/
+
 const squares = document.querySelectorAll(".sqr")
 const colors = document.querySelectorAll(".color_picker");
 const random = document.querySelector(".random_color")
@@ -28,15 +31,6 @@ let toggleRandom = false;
 let toggleWater = false;
 let colorPick = "";
 
-//------EVENTLISTENER CALLBACK FUNCTIONS----
-let colorActivate = function(){
-  toggleColorRandom();
-  fillSquareRandom();
-  fillSquareClickRandom()
-}
-
-
-//----------------------------------
 
 //------FUNCTIONS CALLS----
 resetBtn()
@@ -68,7 +62,6 @@ function toggleWaterColor(){
 }
 //-----------------------------------------------
 
-
 //--------------COLOR PALETTE FUNCTIONS-----------
 function activateFillSquare(){
   colors.forEach((color)=>{
@@ -85,6 +78,7 @@ function activateFillSquare(){
     });
   });
 }
+
     function fillSquare(color){
       squares.forEach((square)=>{
         square.addEventListener("mouseover", (e)=>{
@@ -116,8 +110,8 @@ function colorPickHighlightEffect(){
         colors.forEach((color)=>{
               color.classList.remove("active")
               e.target.classList.add("active")
-              random.classList.remove("random_color_effect")
-              waterColor.classList.remove("random_color_effect")
+              random.classList.remove("random_color_active")
+              waterColor.classList.remove("water_color_active")
         });
     });
   });
@@ -139,15 +133,15 @@ function colorPickEffectRemove (){
   colors.forEach((color)=>{
         color.classList.remove("active")
   });
-  waterColor.classList.remove("random_color_effect")
-  random.classList.add("random_color_effect")
+  waterColor.classList.remove("water_color_active")
+  random.classList.add("random_color_active")
 }
 function colorPickEffectRemoveWC (){
   colors.forEach((color)=>{
         color.classList.remove("active")
   });
-  random.classList.remove("random_color_effect")
-  waterColor.classList.add("random_color_effect")
+  random.classList.remove("random_color_active")
+  waterColor.classList.add("water_color_active")
 }
 
 //-------------------------------------------------------
@@ -166,12 +160,20 @@ function getColorRandom(){
 
 
 //-----------------RANDOM COLOR BUTTON---------------------
+
+
+
 function toggleEventRandom(){
   random.addEventListener("click", ()=>{
       colorPickEffectRemove()
       colorActivateRandom()
   })
 }
+    function colorActivate(){
+      toggleColorRandom();
+      fillSquareRandom();
+      fillSquareClickRandom()
+    }
     function colorActivateRandom(){
       squares.forEach((square)=>{
         square.addEventListener("click", colorActivate)
@@ -208,8 +210,6 @@ function resetBtn(){
   resetBtn.addEventListener("click", ()=>{
     squares.forEach((square)=>{
       square.removeAttribute("style")
-      
-      
     })
   });
 };
@@ -220,20 +220,22 @@ function resetBtn(){
 
 
 
-
+//----------BUTTON TO ENABLE WATERCOLOR EFFECT ON CLICK----//
 function waterColorBtn(){
   waterColor.addEventListener("click", ()=>{
     removeEventRandom()
     colorPickEffectRemoveWC ()
-    waterColorActivate()
+    waterColorEnable()
   })
 }
-    function waterColorActivate(){
+    function waterColorEnable(){
       squares.forEach((square)=>{
         square.addEventListener("click", waterColorActive)
       });
      
     }
+
+    //--------GENERATES THE WATER COLOR EFFECT----//
         function waterColorActive(){
           toggleWaterColor()
           var waterColorIncriment = 0;
