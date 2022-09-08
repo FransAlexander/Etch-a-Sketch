@@ -1,10 +1,16 @@
 
 
+
 /*-------------------------------------------------------------
 ------------------------GRID-CREATION----------------------------
 ----------------------------------------------------------------*/
+
 function createGrid (gridSquares, gridSize) {
   const container = document.querySelector(".grid_container")
+
+  while(container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
   
   for(let i = 0; i < gridSquares; i++){
     const div = document.createElement("div");
@@ -12,34 +18,86 @@ function createGrid (gridSquares, gridSize) {
     div.classList.add("sqr");
     container.appendChild(div);
     }   
+    activateFillSquare()
+    fillSquare(color)
+    fillSquareClick(color)
+    
 }
 
-createGrid(1024, "grid_32x32");
+const px10 = document.querySelector(".square_10x10")
+const px16 = document.querySelector(".square_16x16")
+const px32 = document.querySelector(".square_32x32")
+const px48 = document.querySelector(".square_48x48")
+pxActive10()
+pxActive16()
+pxActive32()
+pxActive48()
 
 
+
+
+// ADD propmt to choose Px Size
+function pxActive10(){
+  px10.addEventListener("click", ()=>{
+    px16.classList.remove("stylePxSqr")
+    px32.classList.remove("stylePxSqr")
+    px48.classList.remove("stylePxSqr")
+    px10.classList.add("stylePxSqr")
+  })
+}
+function pxActive16(){
+  px16.addEventListener("click", ()=>{
+    px10.classList.remove("stylePxSqr")
+    px32.classList.remove("stylePxSqr")
+    px48.classList.remove("stylePxSqr")
+    px16.classList.add("stylePxSqr")
+  })
+}
+
+function pxActive32(){
+  px32.addEventListener("click", ()=>{
+
+    px16.classList.remove("stylePxSqr")
+    px10.classList.remove("stylePxSqr")
+    px48.classList.remove("stylePxSqr")
+    px32.classList.add("stylePxSqr")
+  })
+}
+function pxActive48(){
+  px48.addEventListener("click", ()=>{
+    px10.classList.remove("stylePxSqr")
+    px32.classList.remove("stylePxSqr")
+    px16.classList.remove("stylePxSqr")
+    px48.classList.add("stylePxSqr")
+})
+}
+
+const random = document.querySelector(".random_color")
+const waterColor = document.querySelector(".water_color");
+const colors = document.querySelectorAll(".color_picker");
+const squares = document.querySelectorAll(".sqr")
 
 /*----------------------------------------------------------
 ----------------FUNCTION-CALLS-&-VARIABLES------------------
 ------------------------------------------------------------*/
 
-const squares = document.querySelectorAll(".sqr")
-const colors = document.querySelectorAll(".color_picker");
-const random = document.querySelector(".random_color")
-const waterColor = document.querySelector(".water_color");
+
+
 let toggleColorPick = false;
 let toggleRandom = false;
 let toggleWater = false;
 let colorPick = "";
 
 
+
 //------FUNCTIONS CALLS----
-resetBtn()
+
 colorPickHighlightEffect()
 toggleEventRandom()
-activateFillSquare()
 waterColorBtn()
+resetBtn()
+    
 //--------------------------------
-
 
 
 /*|||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -60,35 +118,47 @@ function toggleColorRandom(){
 function toggleWaterColor(){
   toggleWater = !toggleWater
 }
+
 //-----------------------------------------------
 
 //--------------COLOR PALETTE FUNCTIONS-----------
+
+
 function activateFillSquare(){
+  const squares = document.querySelectorAll(".sqr")
+  const colors = document.querySelectorAll(".color_picker");
   colors.forEach((color)=>{
     color.addEventListener("click", ()=>{
       colorPick = color.getAttribute("style")
       removeEventRandom()
       removeColorActivate()
+      console.log(toggleColorPick)
+      
     });
   }); 
   squares.forEach((square)=>{
     square.addEventListener("click", ()=>{
       toggleColorPicker();
       fillSquare(colorPick);
+      
+      console.log(toggleColorPick)
     });
   });
 }
 
     function fillSquare(color){
+      const squares = document.querySelectorAll(".sqr")
       squares.forEach((square)=>{
         square.addEventListener("mouseover", (e)=>{
           if(toggleColorPick == true) { 
             e.target.style.cssText = `${color}`
+            console.log(e.target.style.cssText)
           };
         });
       });
     };
         function fillSquareClick(color){
+          const squares = document.querySelectorAll(".sqr")
           squares.forEach((square)=>{
             square.addEventListener("click", (e)=>{
                 e.target.style.cssText = `${color}`
@@ -105,6 +175,7 @@ function activateFillSquare(){
 
 //-----------------------REMOVERS AND ClICK EFFECTS------------------------
 function colorPickHighlightEffect(){
+  const colors = document.querySelectorAll(".color_picker");
   colors.forEach((color)=>{
     color.addEventListener("click", (e)=>{
         colors.forEach((color)=>{
@@ -118,18 +189,22 @@ function colorPickHighlightEffect(){
 }
 
 function removeEventRandom(){
+  const squares = document.querySelectorAll(".sqr")
   squares.forEach((square)=>{
     square.removeEventListener("click", colorActivate)
   });
 }
 
+
 function removeColorActivate(){
+  const squares = document.querySelectorAll(".sqr")
   squares.forEach((square)=>{
     square.removeEventListener("click", waterColorActive)
   });
 }
 
 function colorPickEffectRemove (){
+  const colors = document.querySelectorAll(".color_picker");
   colors.forEach((color)=>{
         color.classList.remove("active")
   });
@@ -137,6 +212,7 @@ function colorPickEffectRemove (){
   random.classList.add("random_color_active")
 }
 function colorPickEffectRemoveWC (){
+  const colors = document.querySelectorAll(".color_picker");
   colors.forEach((color)=>{
         color.classList.remove("active")
   });
@@ -175,11 +251,13 @@ function toggleEventRandom(){
       fillSquareClickRandom()
     }
     function colorActivateRandom(){
+      const squares = document.querySelectorAll(".sqr")
       squares.forEach((square)=>{
         square.addEventListener("click", colorActivate)
       });
     }
         function fillSquareRandom(){
+          const squares = document.querySelectorAll(".sqr")
           squares.forEach((square)=>{
             square.addEventListener("mouseover", (e)=>{
               if(toggleRandom == true) { 
@@ -189,6 +267,7 @@ function toggleEventRandom(){
           });
         };
             function fillSquareClickRandom(){
+              const squares = document.querySelectorAll(".sqr")
               squares.forEach((square)=>{
                 square.addEventListener("click", (e)=>{
                   if(toggleRandom == true) { 
@@ -205,15 +284,14 @@ function toggleEventRandom(){
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 function resetBtn(){
-  
   const resetBtn = document.querySelector(".reset_btn");
+  const squares = document.querySelectorAll(".sqr")
   resetBtn.addEventListener("click", ()=>{
     squares.forEach((square)=>{
       square.removeAttribute("style")
-    })
   });
-};
-
+})
+}
 /*|||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||||||||||||||||||||||WATER COLOR|||||||||||||||||||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
@@ -222,6 +300,7 @@ function resetBtn(){
 
 //----------BUTTON TO ENABLE WATERCOLOR EFFECT ON CLICK----//
 function waterColorBtn(){
+  const waterColor = document.querySelector(".water_color");
   waterColor.addEventListener("click", ()=>{
     removeEventRandom()
     colorPickEffectRemoveWC ()
@@ -229,6 +308,7 @@ function waterColorBtn(){
   })
 }
     function waterColorEnable(){
+      const squares = document.querySelectorAll(".sqr")
       squares.forEach((square)=>{
         square.addEventListener("click", waterColorActive)
       });
@@ -237,6 +317,7 @@ function waterColorBtn(){
 
     //--------GENERATES THE WATER COLOR EFFECT----//
         function waterColorActive(){
+          const squares = document.querySelectorAll(".sqr")
           toggleWaterColor()
           var waterColorIncriment = 0;
             squares.forEach((square)=>{

@@ -3,7 +3,7 @@
 calculation of square sizing: X\*X = X
 calculation for square size: example 16x16 = 16 / 600 = 37.5 per square
 
-8x8 grid = 64 squares 75px per square
+10x10 grid = 100 squares 60px per square
 
 16x16 grid = 256 squares 37.5px per square
 
